@@ -1,0 +1,21 @@
+#Virtual Environment
+env/
+
+#Compiled Python file
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+#database
+*db.sqlite3
+
+#IDE files
+.vscode/
+.idea/
+
+#log files
+*.log
+
+#directories
+media/
