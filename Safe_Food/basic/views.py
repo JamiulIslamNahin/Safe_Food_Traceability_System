@@ -1,6 +1,9 @@
 from django.shortcuts import render,redirect
 # Create your views here.
 
+def home(request):
+    return render(request, "index.html", {'about_show_more' : True})
+
 def about(request):
     return render(request, "about.html", {'about_show_more' : False})
 
@@ -15,9 +18,6 @@ def terms(request):
 
 def testimonial(request):
     return render(request, "testimonial.html")
-
-def home(request):
-    return render(request, "index.html", {'about_show_more' : True})
 
 def notFound(request):
     return render(request, "404.html")

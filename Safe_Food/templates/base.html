@@ -68,18 +68,44 @@
                         </div>
                         <a href="{% url 'contact' %}" class="nav-item nav-link">Contact</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">SignIn/SignUp</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="#" class="dropdown-item">SignIn</a>
-                                <a href="#" class="dropdown-item">SignUp</a>
-                            </div>
+                            {% if request.user.is_authenticated %}
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">{{ request.user.UserProfile.name }}</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                <a href="{%url 'profile'%}" class="dropdown-item"> Profile </a>
+                                <a href = "{%url 'signout'%}?next={{request.path}}" class = "dropdown-item"> Sign Out </a>
+                                </div>
+                            {% else %}
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sign in/Sign Up</a>
+                                <div class="dropdown-menu rounded-0 m-0">
+                                <a href="{%url 'signin'%}?next={{request.path}}" class="dropdown-item">Sign In</a>
+                                <a href="{%url 'signup'%}" class="dropdown-item">Sign Up</a>
+                                </div>
+                            {% endif %}
                         </div>
                         
                     </div>
-                    <a href="#" class="btn btn-primary px-3 d-none d-lg-flex">Add Product</a>
+                    <a href="#" class="btn btn-primary px-3 d-none d-lg-flex">Dashboard</a>
                 </div>
             </nav>
         </div>
+
+
+        {% if messages %}
+        <div class="container-fluid bg-white p-0">
+            <div class="row justify-content-center">
+                <div class="col-md-8 mt-3" style="position: relative; z-index: 999;">
+                    <div class="alert-container">
+                        {% for message in messages %}
+                            <div class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'success' %}alert-success{% elif message.tags == 'warning' %}alert-warning{% endif %} alert-dismissible fade show" role="alert" style="border-radius: 10px;">
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
         <!-- Navbar End -->
 
 
