@@ -6,8 +6,14 @@ def product_report(request):
 
 
 def nutrition_data(request):
-    return render(request, "prnutrition_data.html")
+    return render(request, "nutrition_data.html")
 
 
 def nutritionist_dashboard(request):
     return render(request, "nutritionist_dashboard.html")
+
+def store_manager_dashboard(request):
+    return render(request,"store_manager_dashboard.html")
+
+def admin_dashboard(request):
+    return render(request,"admin_dashboard.html")
