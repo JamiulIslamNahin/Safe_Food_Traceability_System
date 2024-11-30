@@ -199,10 +199,10 @@
     <div class="sidebar">
         <h2>Store Manager</h2>
         <ul>
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Admin Dashboard</a></li>
+            <li><a href="{%url 'dashboard' %}">Dashboard</a></li>
+            <li><a href="{%url 'admin_dashboard' %}">Admin Dashboard</a></li>
             <li><a href="#">Products</a></li>
-            <li><a href="#">Settings</a></li>
+            {% comment %} <li><a href="#">Settings</a></li> {% endcomment %}
         </ul>
     </div>
 

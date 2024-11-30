@@ -16,7 +16,8 @@ class UserProfile(models.Model):
         ('fm', 'Farm Manager'),
         ('n', 'Nutritionist'),
         ('d', 'Distributor'),
-        ('fso', 'Food Safety Officer'),
+        ('qao', 'Quality Assurance Officer'),
+        ('sm', 'Store Manager'),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="UserProfile")
@@ -45,8 +46,11 @@ class UserProfile(models.Model):
         elif(prefix == "Distributor"):
             prefix = "d"
 
-        elif(prefix == "Food Safety Officer"):
-            prefix = "fso"
+        elif(prefix == "Quality Assurance Officer"):
+            prefix = "qao"
+
+        elif(prefix == "Store Manager"):
+            prefix = "sm"
             
         count = UserProfile.objects.filter(user_type=self.user_type).count() + 1
         return f"{prefix}{count}"

@@ -75,16 +75,16 @@
                                 <a href = "{%url 'signout'%}?next={{request.path}}" class = "dropdown-item"> Sign Out </a>
                                 </div>
                             {% else %}
-                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Sign in/Sign Up</a>
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Register</a>
                                 <div class="dropdown-menu rounded-0 m-0">
                                 <a href="{%url 'signin'%}?next={{request.path}}" class="dropdown-item">Sign In</a>
-                                <a href="{%url 'signup'%}" class="dropdown-item">Sign Up</a>
+                                <a href="{%url 'signup'%}" class="dropdown-item">Registration</a>
                                 </div>
                             {% endif %}
                         </div>
                         
                     </div>
-                    <a href="#" class="btn btn-primary px-3 d-none d-lg-flex">Dashboard</a>
+                    <a href="{%url 'dashboard' %}" class="btn btn-primary px-3 d-none d-lg-flex">Dashboard</a>
                 </div>
             </nav>
         </div>

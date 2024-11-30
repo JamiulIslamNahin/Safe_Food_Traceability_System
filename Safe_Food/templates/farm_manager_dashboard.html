@@ -8,17 +8,19 @@
 <body>
     <header class="top-nav">
         <h1>Farm Manager</h1>
-        <button class="logout-btn">Logout</button>
+        <a href = "{%url 'signout' %}"> 
+          <button class="logout-btn">Logout</button>
+        </a>
     </header>
 
     <div class="dashboard">
         <aside class="sidebar">
             <nav>
                 <ul>
-                    <li><a href="fm_overview.html">Overview</a></li>
-                    <li><a href="crop_management.html">Crop Management</a></li>
-                    <li><a href="fm_inventory.html">Inventory</a></li>
-                    <li><a href="fm_reports.html">Reports</a></li>
+                    <li><a href="{%url 'fm_overview' %}">Overview</a></li>
+                    <li><a href="{%url 'crop_management' %}">Crop Management</a></li>
+                    <li><a href="{%url 'fm_inventory' %}">Inventory</a></li>
+                    <li><a href="{%url 'fm_report' %}">Reports</a></li>
                 </ul>
             </nav>
         </aside>
@@ -121,7 +123,8 @@
 
 .dashboard {
   display: flex;
-  width: 100%;
+  {% comment %} width: 100vw; {% endcomment %}
+  height: 100vh;
 }
 
 .sidebar {

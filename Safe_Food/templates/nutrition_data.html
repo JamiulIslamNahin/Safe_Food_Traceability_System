@@ -58,19 +58,11 @@
         <div class="bg-success text-white p-3" id="sidebar-wrapper">
             <h3>Nutritionist</h3>
             <ul class="nav flex-column mt-4">
-                <li class="nav-item"></li> 
-                    <a href="?" class="list-group-item list-group-item-action bg-success text-white sidebar-link active">Admin Dashboard</a>
                 <li class="nav-item">
-                    <a href="index.html" class="nav-link text-white">Home</a>
+                    <button onclick="history.back()" class="btn btn-secondary mb-3">← Back</button>
                 </li>
                 <li class="nav-item">
-                    <a href="products.html" class="nav-link active bg-light text-success">Products</a>
-                </li>
-                <li class="nav-item">
-                    <a href="report.html" class="nav-link text-white">Reports</a>
-                </li>
-                <li class="nav-item">
-                    <a href="logout.html" class="nav-link text-white">Logout</a>
+                    <a href="{%url 'signout' %}" class="nav-link text-white">Logout</a>
                 </li>
             </ul>
         </div>
