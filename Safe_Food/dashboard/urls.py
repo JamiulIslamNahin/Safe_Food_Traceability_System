@@ -1,5 +1,6 @@
 from django.urls import path
 from . import views
+# from .forms import CropsForm
 
 
 urlpatterns = [
@@ -15,4 +16,8 @@ urlpatterns = [
     path('crop-management', views.crop_management, name = "crop_management"),
     path('dt-product', views.dt_product, name = "dt_product"),
     path('dt-shipment', views.dt_shipment, name = "dt_shipment"),
+    # path('', views.crops_list, name='crops_list'),
+    # path('create/', views.crops_create, name='crops_create'),
+    # path('update/<int:pk>/', views.crops_update, name='crops_update'),
+    # path('delete/<int:pk>/', views.crops_delete, name='crops_delete'),   
 ]
