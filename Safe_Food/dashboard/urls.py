@@ -15,4 +15,8 @@ urlpatterns = [
     # path('send-to-storage/<int:crop_id>/', views.send_to_storage, name='send_to_storage'),
     path('dt-product', views.dt_product, name = "dt_product"),
     path('dt-shipment', views.dt_shipment, name = "dt_shipment"), 
+    path("farms/", views.view_farms, name="view_farms"),
+    path("farm/<int:farm_id>/items/", views.view_farm_items, name="view_farm_items"),
+    path("add-to-storage/<int:crop_id>/", views.add_to_storage, name="add_to_storage"),
+    path("assign-storage/", views.assign_storage, name="assign_storage"),
 ]

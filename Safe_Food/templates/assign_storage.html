@@ -1,0 +1,21 @@
+<h2>Assign or Add a Storage</h2>
+
+<div>
+    <h3>Choose an Existing Storage</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ assign_form.as_p }}
+        <button type="submit" name="assign_storage" class="btn btn-primary">Assign</button>
+    </form>
+</div>
+
+<hr>
+
+<div>
+    <h3>Or Add a New Storage</h3>
+    <form method="POST">
+        {% csrf_token %}
+        {{ add_form.as_p }}
+        <button type="submit" name="add_storage" class="btn btn-success">Add and Assign</button>
+    </form>
+</div>

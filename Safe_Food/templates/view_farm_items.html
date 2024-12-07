@@ -1,0 +1,25 @@
+<h2>{{ farm.name }}: Crops</h2>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Harvest Date</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for crop in crops %}
+            <tr>
+                <td>{{ crop.Crop_name }}</td>
+                <td>{{ crop.get_Crops_type_display }}</td>
+                <td>{{ crop.Quantity }}</td>
+                <td>{{ crop.Harvest_Date }}</td>
+                <td>
+                    <a href="{% url 'add_to_storage' crop.id %}" class="btn btn-primary btn-sm">Add to Storage</a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>

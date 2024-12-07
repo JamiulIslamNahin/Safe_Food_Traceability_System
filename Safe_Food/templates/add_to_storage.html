@@ -1,0 +1,42 @@
+<h2>Add {{ crop.Crop_name }} to Storage</h2>
+<form method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Crop Name</label>
+        <input type="text" class="form-control" value="{{ crop.Crop_name }}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Farm Name</label>
+        <input type="text" class="form-control" value="{{ crop.farm.farm_name }}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Quantity</label>
+        <input type="text" class="form-control" value="{{ crop.Quantity }}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Crop Type</label>
+        <input type="text" class="form-control" value="{{ crop.get_Crops_type_display }}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Harvest Date</label>
+        <input type="text" class="form-control" value="{{ crop.Harvest_Date }}" readonly>
+    </div>
+    <div class="form-group">
+        <label>Storage</label>
+        <select name="storage_id" class="form-control">
+            {% for storage in storages %}
+                <option value="{{ storage.id }}">{{ storage.storage_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="form-group">
+        {{ form.temperature.label_tag }}
+        {{ form.temperature }}
+    </div>
+    <div class="form-group">
+        {{ form.humidity.label_tag }}
+        {{ form.humidity }}
+    </div>
+    <button type="submit" class="btn btn-primary">Add to Storage</button>
+    <a href="{% url 'view_farm_items' crop.farm.id %}" class="btn btn-secondary">Cancel</a>
+</form>
