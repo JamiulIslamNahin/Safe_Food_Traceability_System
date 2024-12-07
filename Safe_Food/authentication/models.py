@@ -18,6 +18,7 @@ class UserProfile(models.Model):
         ('d', 'Distributor'),
         ('qao', 'Quality Assurance Officer'),
         ('sm', 'Store Manager'),
+        ('frm', 'Factory Manager'),
     ]
 
     user = models.OneToOneField(User, on_delete=models.CASCADE, null=True, related_name="UserProfile")
@@ -51,6 +52,9 @@ class UserProfile(models.Model):
 
         elif(prefix == "Store Manager"):
             prefix = "sm"
+        
+        elif(prefix == "Factory Manager"):
+            prefix = "frm"
             
         count = UserProfile.objects.filter(user_type=self.user_type).count() + 1
         return f"{prefix}{count}"

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quality Assurance Officer - Product Management</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+        }
+        h1 {
+            font-weight: bold;
+            color: #2d3748;
+        }
+        .card {
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+        .card-header {
+            background-color: #f6f8fa;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .table th, .table td {
+            text-align: center;
+            padding: 12px;
+            font-size: 14px;
+            color: #4a5568;
+        }
+        .table th {
+            background-color: #edf2f7;
+            border-top: 1px solid #e2e8f0;
+        }
+        .table tbody tr {
+            background-color: #fff;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .table tbody tr:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        .btn-success {
+            background: #38a169;
+            border-color: #38a169;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .btn-success:hover {
+            background: #2f855a;
+            border-color: #2f855a;
+        }
+        .modal-content {
+            background: #f8f9fa;
+            color: #4a5568;
+        }
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+            background-color: #fff;
+            color: #4a5568;
+        }
+        .form-control:focus {
+            border-color: #38a169;
+            box-shadow: none;
+        }
+        .modal-header {
+            background-color: #edf2f7;
+            border-bottom: 1px solid #e2e8f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Quality Assurance - Product Management</h1>
+
+        <!-- Product Table -->
+        <div class="card p-3">
+            <div class="card-header text-center">
+                <h4 class="mb-0"><i class="fas fa-boxes"></i> Product List</h4>
+            </div>
+            <div class="card-body">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Process Product ID</th> <!-- New Column -->
+                            <th>Product Name</th>
+                            <th>Process Name</th>
+                            <th>Process Date</th>
+                            <th>Expire Date</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody id="productTableBody">
+                        <!-- Dynamic rows will be appended here -->
+                        <tr>
+                            <td>1</td>
+                            <td>PPID_169654876_457</td>
+                            <td>Milk</td>
+                            <td>Pasteurization</td>
+                            <td>2024-12-01</td>
+                            <td>2024-12-10</td>
+                            <td>100</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>PPID_169657892_671</td>
+                            <td>Wheat Flour</td>
+                            <td>Grinding</td>
+                            <td>2024-11-15</td>
+                            <td>2025-05-15</td>
+                            <td>500</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Add New Product Button -->
+        <div class="text-end mt-4">
+            <button class="btn btn-success btn-lg shadow" onclick="openAddProductModal()">
+                <i class="fas fa-plus"></i> Add New Product
+            </button>
+        </div>
+    </div>
+
+    <!-- Add Product Modal -->
+    <div class="modal fade" id="addProductModal" tabindex="-1" aria-labelledby="addProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addProductModalLabel">Add New Product</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addProductForm">
+                        <div class="mb-3">
+                            <label for="productName" class="form-label">Product Name</label>
+                            <input type="text" class="form-control" id="productName" placeholder="Enter product name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="processName" class="form-label">Process Name</label>
+                            <input type="text" class="form-control" id="processName" placeholder="Enter process name" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="processDate" class="form-label">Process Date</label>
+                            <input type="date" class="form-control" id="processDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="expireDate" class="form-label">Expire Date</label>
+                            <input type="date" class="form-control" id="expireDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="quantity" class="form-label">Quantity</label>
+                            <input type="number" class="form-control" id="quantity" placeholder="Enter quantity" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Save Product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function openAddProductModal() {
+            const addProductModal = new bootstrap.Modal(document.getElementById('addProductModal'));
+            addProductModal.show();
+        }
+
+        document.getElementById('addProductForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const productName = document.getElementById('productName').value;
+            const processName = document.getElementById('processName').value;
+            const processDate = document.getElementById('processDate').value;
+            const expireDate = document.getElementById('expireDate').value;
+            const quantity = document.getElementById('quantity').value;
+
+            // Auto-generate Process Product ID
+            const processProductID = `PPID_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
+
+            const tableBody = document.getElementById('productTableBody');
+            const rowCount = tableBody.rows.length + 1;
+            const newRow = `
+                <tr>
+                    <td>${rowCount}</td>
+                    <td>${processProductID}</td> <!-- Include Process Product ID -->
+                    <td>${productName}</td>
+                    <td>${processName}</td>
+                    <td>${processDate}</td>
+                    <td>${expireDate}</td>
+                    <td>${quantity}</td>
+                </tr>
+            `;
+            tableBody.innerHTML += newRow;
+
+            const addProductModal = bootstrap.Modal.getInstance(document.getElementById('addProductModal'));
+            addProductModal.hide();
+            this.reset();
+        });
+    </script>
+</body>
+</html>
