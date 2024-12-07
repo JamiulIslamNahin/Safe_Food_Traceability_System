@@ -1,21 +1,94 @@
-<h2>Assign or Add a Storage</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assign or Add a Storage</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom right, #eef2f3, #8e9eab);
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
 
-<div>
-    <h3>Choose an Existing Storage</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {{ assign_form.as_p }}
-        <button type="submit" name="assign_storage" class="btn btn-primary">Assign</button>
-    </form>
-</div>
+        h2, h3 {
+            text-align: center;
+            color: #0056b3;
+            text-shadow: 1px 1px 2px #d6d6d6;
+        }
 
-<hr>
+        div {
+            background: white;
+            padding: 20px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
 
-<div>
-    <h3>Or Add a New Storage</h3>
-    <form method="POST">
-        {% csrf_token %}
-        {{ add_form.as_p }}
-        <button type="submit" name="add_storage" class="btn btn-success">Add and Assign</button>
-    </form>
-</div>
+        hr {
+            border: none;
+            border-top: 2px solid #ddd;
+            margin: 30px 0;
+        }
+
+        form {
+            margin-top: 10px;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            transform: translateY(-3px);
+        }
+    </style>
+</head>
+<body>
+    <h2>Assign or Add a Storage</h2>
+
+    <div>
+        <h3>Choose an Existing Storage</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ assign_form.as_p }}
+            <button type="submit" name="assign_storage" class="btn btn-primary">Assign</button>
+        </form>
+    </div>
+
+    <hr>
+
+    <div>
+        <h3>Or Add a New Storage</h3>
+        <form method="POST">
+            {% csrf_token %}
+            {{ add_form.as_p }}
+            <button type="submit" name="add_storage" class="btn btn-success">Add and Assign</button>
+        </form>
+    </div>
+</body>
+</html>

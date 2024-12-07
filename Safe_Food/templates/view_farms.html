@@ -1,8 +1,60 @@
-<h2>Farms</h2>
-<ul>
-    {% for farm in farms %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farms</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(120deg, #a1c4fd, #c2e9fb);
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        h2 {
+            color: #007BFF;
+            text-align: center;
+            text-shadow: 2px 2px #d6d6d6;
+            margin-top: 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 400px;
+            margin: 20px auto;
+        }
+
+        li {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h2>Farms</h2>
+    <ul>
+        {% for farm in farms %}
         <li>
             <a href="{% url 'view_farm_items' farm.id %}">{{ farm.farm_name }}</a>
         </li>
-    {% endfor %}
-</ul>
+        {% endfor %}
+    </ul>
+</body>
+</html>
