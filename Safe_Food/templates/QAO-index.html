@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Safe Food Traceability Dashboard</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: Arial, sans-serif;
+      }
+      body {
+        background-color: #f5fbf9;
+      }
+      .header {
+        padding: 20px;
+        text-align: center;
+        position: sticky;
+        top: 0;
+        background-color: #f5fbf9;
+        border-bottom: 2px solid #0056b3;
+        z-index: 1;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        align-items: flex-start;
+      }
+      .card {
+        background: #fff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+      }
+      .card h2 {
+        font-size: 18px;
+        color: #0056b3;
+        margin-bottom: 15px;
+      }
+      .card p {
+        font-size: 14px;
+        line-height: 1.2;
+        margin-bottom: 12px;
+        color: #333;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+        color: #333;
+        font-weight: bold;
+      }
+      .form-group input,
+      .form-group select {
+        width: 100%;
+        padding: 8px;
+        font-size: 14px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      .btn {
+        display: inline-block;
+        background-color: #0056b3;
+        color: #fff;
+        padding: 8px 12px;
+        text-align: center;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+      .btn-danger {
+        background-color: #d9534f;
+      }
+      .btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+      .product-info {
+        line-height: 1.6;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .product-info span {
+        display: block;
+        font-size: 14px;
+        color: #333;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <h1>Safe Food Traceability Dashboard</h1>
+      <p>Ensuring Food Safety and Transparency</p>
+    </header>
+    <main class="container">
+      <section class="grid">
+        <div class="card">
+          <h2>Quality Assurance Officer (QAO) Details</h2>
+          <form id="qao-form">
+            <div class="form-group">
+              <label for="qao-id">QAO ID</label>
+              <input type="text" id="qao-id" placeholder="Enter QAO ID" />
+            </div>
+            <div class="form-group">
+              <label for="qao-name">QAO Name</label>
+              <input type="text" id="qao-name" placeholder="Enter QAO Name" />
+            </div>
+            <button class="btn" type="submit">Save QAO Details</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Select Product</h2>
+          <div class="form-group">
+            <label for="product-select">Product</label>
+            <select id="product-select">
+              <option>Tomato - Cherry (Farm A)</option>
+              <option>Lettuce - Romaine (Farm B)</option>
+            </select>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Product Information</h2>
+          <div class="product-info">
+            <span><strong>Origin:</strong> Farm A</span>
+            <span><strong>Variety:</strong> Tomato - Cherry</span>
+            <span><strong>Harvest Date:</strong> 2024-11-15</span>
+            <span><strong>Certifications:</strong> Organic, GAP Certified</span>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Storage Management</h2>
+          <form>
+            <div class="form-group">
+              <label for="storage-id">Storage ID</label>
+              <input
+                type="text"
+                id="storage-id"
+                placeholder="Enter Storage ID"
+              />
+            </div>
+            <button class="btn" type="button">Add Storage</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Certification of Lots</h2>
+          <form>
+            <div class="form-group">
+              <label for="lot-id">Lot ID</label>
+              <input type="text" id="lot-id" placeholder="Enter Lot ID" />
+            </div>
+            <button class="btn" type="button">Certify Lot</button>
+          </form>
+        </div>
+        <div class="card">
+          <h2>Recall Management</h2>
+          <p>
+            Track affected products and manage recalls by identifying batches
+            and distribution points.
+          </p>
+          <button class="btn btn-danger" type="button">
+            Identify Affected Batches
+          </button>
+        </div>
+      </section>
+      <button
+        class="btn"
+        id="view-saved-ids"
+        style="margin-top: 20px"
+        type="button"
+      >
+        View Saved IDs
+      </button>
+    </main>
+    <script>
+      const qaoForm = document.getElementById("qao-form");
+      qaoForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+        const qaoId = document.getElementById("qao-id").value;
+        const qaoName = document.getElementById("qao-name").value;
+        console.log(qaoId, qaoName);
+        const savedData = JSON.parse(localStorage.getItem("qaoData") || "[]");
+        savedData.push({ id: qaoId, name: qaoName });
+        localStorage.setItem("qaoData", JSON.stringify(savedData));
+        alert("QAO details saved successfully!");
+      });
+
+      document
+        .getElementById("view-saved-ids")
+        .addEventListener("click", () => {
+          window.location.href = "/saved-ids.html";
+        });
+    </script>
+  </body>
+</html>
