@@ -33,6 +33,10 @@ class Storage(models.Model):
     crops = models.ManyToManyField(Crops, related_name="storages", blank= True)
 
 
+    def __str__(self):
+        return f"{self.crop.Crop_name} in {self.storage.storage_name}"
+
+
 class StorageItem(models.Model):
     crop = models.ForeignKey(Crops, on_delete=models.CASCADE, related_name="storage_items")
     storage = models.ForeignKey("Storage", on_delete=models.CASCADE, related_name="items")
@@ -47,18 +51,17 @@ class StorageItem(models.Model):
     product_quantity = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
-        # Automatically populate farm_name, product_name, product_type, and product_quantity
-        self.farm_name = self.crop.farm.farm_name
-        self.product_name = self.crop.Crop_name  # Assuming Crop_name is the product name
-        self.product_type = self.crop.Crops_type  # Assuming crop_type is the product type
-        self.product_quantity = self.crop.Quantity  # Assuming quantity is available in the Crops model
-
+        # Automatically populate only when creating or updating explicitly
+        if not self.pk:  # Only populate these fields on creation
+            self.farm_name = self.crop.farm.farm_name
+            self.product_name = self.crop.Crop_name  # Assuming Crop_name is the product name
+            self.product_type = self.crop.Crops_type  # Assuming crop_type is the product type
+            self.product_quantity = self.crop.Quantity  # Assuming quantity is available in the Crops model
+        
         super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.product_name} in {self.storage.storage_name}"
 
 
-
-    def __str__(self):
-        return f"{self.crop.Crop_name} in {self.storage.storage_name}"

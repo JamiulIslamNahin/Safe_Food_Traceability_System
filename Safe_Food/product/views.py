@@ -4,9 +4,22 @@ from .models import *
 from .forms import *
 
 # Create your views here.
-def product_list(request):
-    crops = Crops.objects.all()
-    return render(request, "product-list.html", {'crops': crops})
+def product_list(request, product_type=None):
+    if product_type:
+        # Filter based on category name instead of ID
+        storage_items = StorageItem.objects.filter(product_type=product_type)
+    else:
+        storage_items = StorageItem.objects.all()
+
+    return render(request, 'product-list.html', {'storage_items': storage_items, 'category': product_type})
+
+
+def product_detail(request, item_id):
+    # Fetch the specific product by ID
+    product = get_object_or_404(StorageItem, id=item_id)
+    return render(request, 'product_detail.html', {'product': product})
+
+
 
 def add_crop(request):
     try:
@@ -77,4 +90,26 @@ def delete_crop(request, crop_id):
 
 
 def product_type(request):
-    return render(request, "product-type.html")
+    return render(request, "product-type.html") 
+
+
+def edit_temp(request, product_id):
+    product = get_object_or_404(StorageItem, id=product_id)
+
+    if request.method == "POST":
+        # Update temperature and humidity
+        product.temperature = request.POST.get("temperature")
+        product.humidity = request.POST.get("humidity")
+        # product.product_quantity = product.product_quantity
+        product.save()
+        return redirect("dashboard")  # Redirect to the main dashboard after updating
+
+    # Render the form with prepopulated data
+    return render(request, "edit_temp.html", {"product": product})
+
+
+def delete_item(request, item_id):
+    # Get the item to delete or return a 404 if it doesn't exist
+    item = get_object_or_404(StorageItem, id=item_id)
+    item.delete()  # Delete the item
+    return redirect('dashboard') 

@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+<title>Product Detail</title>
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card">
+        <div class="card-body">
+            <h3 class="card-title">{{ product.product_name }}</h3>
+            <p><strong>Farm Name:</strong> {{ product.farm_name }}</p>
+            <p><strong>Product Type:</strong> 
+                <td>
+                    {%if product.product_type == "1"%}
+                        Vegetables
+                    {%elif product.product_type == "2"%}
+                        Fruits
+                    {%elif product.product_type == "3"%}
+                        Grains
+                    {%elif product.product_type == "4"%}
+                        Spices
+                    {% endif %}
+                </td>
+            </p>
+            <p><strong>Quantity:</strong> {{ product.product_quantity }}</p>
+            <p><strong>Date Added:</strong> {{ product.date_added }}</p>
+            <p><strong>Temperature:</strong> {{ product.temperature }}</p>
+            <p><strong>Humidity:</strong> {{ product.humidity }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

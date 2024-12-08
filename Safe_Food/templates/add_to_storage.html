@@ -117,14 +117,14 @@
             <label>Harvest Date</label>
             <input type="text" class="form-control" value="{{ crop.Harvest_Date }}" readonly>
         </div>
-        <div class="form-group">
+        {% comment %} <div class="form-group">
             <label>Storage</label>
             <select name="storage_id" class="form-control">
                 {% for storage in storages %}
                     <option value="{{ storage.id }}">{{ storage.storage_name }}</option>
                 {% endfor %}
             </select>
-        </div>
+        </div> {% endcomment %}
         <div class="form-group">
             {{ form.temperature.label_tag }}
             {{ form.temperature }}
@@ -134,7 +134,6 @@
             {{ form.humidity }}
         </div>
         <button type="submit" class="btn btn-primary">Add to Storage</button>
-        <a href="{% url 'view_farm_items' crop.farm.id %}" class="btn btn-secondary">Cancel</a>
     </form>
 </body>
 </html>

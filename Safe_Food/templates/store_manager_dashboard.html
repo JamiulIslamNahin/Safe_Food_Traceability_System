@@ -266,8 +266,17 @@
                             <td>{{ item.temperature }}°C</td>
                             <td>{{ item.humidity }}%</td>
                             <td class="actions">
-                                <button class="btn-edit">Edit</button>
-                                <button class="btn-delete">Delete</button>
+                                <a href="{% url 'edit_temp' item.id %}">
+                                    <button class="btn-edit">Edit</button>
+                                </a>
+
+                                {% comment %} <button class="btn-delete" data-id="{{ item.id }}">Delete</button> {% endcomment %}
+                                <form action="{% url 'delete_item' item.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button class="btn-delete" type="submit">Delete</button>
+                                </form>
+                                
+
                             </td>
                         </tr>
                     {% endfor %}

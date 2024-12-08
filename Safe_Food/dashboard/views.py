@@ -124,7 +124,7 @@ def add_to_storage(request, crop_id):
             crop.Quantity = 0
             crop.save()
 
-            return redirect("view_farm_items", farm_id=crop.farm.id)
+            return redirect("dashboard")
     else:
         form = AddToStorageForm()
 
