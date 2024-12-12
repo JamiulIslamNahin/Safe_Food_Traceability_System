@@ -40,7 +40,7 @@ def add_crop(request):
                 crop = crop_form.save(commit=False)
                 crop.farm = farm
                 crop.save()
-                return redirect('crop_management')  # Redirect to crop list after saving
+                return redirect('dashboard')  # Redirect to crop list after saving
         else:
             # If no farm exists for the user, prompt for farm creation
             farm_form = FarmForm(request.POST)
@@ -56,7 +56,7 @@ def add_crop(request):
                 crop.farm = new_farm
                 crop.save()
 
-                return redirect('crop_management')  # Redirect after saving
+                return redirect('dashboard')  # Redirect after saving
     else:
         # Create an empty crop form and farm form for GET request
         if farm:
@@ -76,7 +76,7 @@ def edit_crop(request, crop_id):
         form = CropForm(request.POST, instance=crop)
         if form.is_valid():
             form.save()
-            return redirect('crop_management')
+            return redirect('dashboard')
     else:
         form = CropForm(instance=crop)
     return render(request, 'crop_edit_form.html', {'form': form})
@@ -85,7 +85,7 @@ def delete_crop(request, crop_id):
     crop = get_object_or_404(Crops, id=crop_id)
     if request.method == 'POST':
         crop.delete()
-        return redirect('crop_management')
+        return redirect('dashboard')
     return render(request, 'crop_confirm_delete.html', {'crop': crop})
 
 
