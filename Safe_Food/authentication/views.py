@@ -46,7 +46,7 @@ def signup(request):
 def signin(request):
     if request.user.is_authenticated:
         messages.warning(request, "You have already Signed In")
-        return redirect('/')
+        return redirect('dashboard')
     
     if request.method == 'POST':
         form = SignInForm(request, data=request.POST)
@@ -60,14 +60,15 @@ def signin(request):
                 login(request, user)
                 request.session['isLoggedIn'] = True
                 messages.success(request, "Successfully Signed in")
-                next_url = request.GET.get('next')
-                if next_url:
-                    if(next_url == "/authentication/signup" or next_url == "/authentication/signin"):
-                        return redirect("/")
-                    else:
-                        return redirect(next_url)
-                else:
-                    return redirect("/")
+                # next_url = request.GET.get('next')
+                # if next_url:
+                #     if(next_url == "/authentication/signup" or next_url == "/authentication/signin"):
+                #         return redirect("/")
+                #     else:
+                #         return redirect(next_url)
+                # else:
+                #     return redirect("/")
+                return redirect("dashboard")
     
     else:        
         form = SignInForm()
