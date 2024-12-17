@@ -44,6 +44,14 @@ class StorageItem(models.Model):
     temperature = models.FloatField(null=True, blank=True)
     humidity = models.FloatField(null=True, blank=True)
     farm_name = models.CharField(max_length=100, editable=False)
+
+# class StorageItem(models.Model):
+#     Product_Name= models.ForeignKey(product_name, on_delete=models.CASCADE, related_name="storage_items")
+#     storage = models.ForeignKey("Storage", on_delete=models.CASCADE, related_name="items")
+#     Processed_Product = models.DateField(auto_now_add=True)  # Date when added to storage
+#     Process_Date = models.FloatField(null=True, blank=True)
+#     Expire_Date= models.FloatField(null=True, blank=True)
+#     Quantity = models.CharField(max_length=100, editable=False)
     
     # New fields for product information
     product_name = models.CharField(max_length=255, editable=False, null=True)
@@ -63,5 +71,6 @@ class StorageItem(models.Model):
 
     def __str__(self):
         return f"{self.product_name} in {self.storage.storage_name}"
+
 
 
