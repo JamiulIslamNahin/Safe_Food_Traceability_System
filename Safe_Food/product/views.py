@@ -4,6 +4,12 @@ from .models import *
 from .forms import *
 
 
+#New 
+from django.http import JsonResponse
+from .models import Product, Nutrition, Storage
+from django.views.decorators.csrf import csrf_exempt
+
+
 # Create your views here.
 def product_list(request, product_type=None):
     if product_type:
@@ -113,6 +119,47 @@ def delete_item(request, item_id):
     # Get the item to delete or return a 404 if it doesn't exist
     item = get_object_or_404(StorageItem, id=item_id)
     item.delete()  # Delete the item
+
+    return redirect('dashboard') 
+
+
+#New line code for Nutritionist
+
+# View for managing nutrition values of a specific product
+def product_nutrition_management(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    nutrition, created = Nutrition.objects.get_or_create(product=product)
+
+    if request.method == "POST":
+        # Update nutrition values
+        nutrition.calories = request.POST.get("calories")
+        nutrition.protein = request.POST.get("protein")
+        nutrition.carbohydrates = request.POST.get("carbohydrates")
+        nutrition.fats = request.POST.get("fats")
+        nutrition.comments = request.POST.get("comments")
+        nutrition.save()
+        return JsonResponse({"success": True, "message": "Nutritional values saved!"})
+
+    return render(request, 'nutritionist_dashboard.html', {'product': product, 'nutrition': nutrition})
+
+# Fetch products related to a specific storage
+@csrf_exempt
+def fetch_products_by_storage(request, storage_id):
+    storage = get_object_or_404(Storage, id=storage_id)
+    products = Product.objects.filter(storage=storage).values('id', 'name')
+    return JsonResponse({"products": list(products)})
+
+
+#For product deletation
+
+from django.shortcuts import redirect, get_object_or_404
+from .models import Product
+
+def delete_product(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+    product.delete()
+    return redirect('products')  
+
     return redirect('dashboard')
 
 
@@ -171,4 +218,5 @@ def add_productforfac(request):
 def view_storage(request):
     # Your logic for the storage page
     return render(request, 'view_storage.html')
+
 
