@@ -3,10 +3,12 @@ from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import *
 
+
 #New 
 from django.http import JsonResponse
 from .models import Product, Nutrition, Storage
 from django.views.decorators.csrf import csrf_exempt
+
 
 # Create your views here.
 def product_list(request, product_type=None):
@@ -117,6 +119,7 @@ def delete_item(request, item_id):
     # Get the item to delete or return a 404 if it doesn't exist
     item = get_object_or_404(StorageItem, id=item_id)
     item.delete()  # Delete the item
+
     return redirect('dashboard') 
 
 
@@ -156,3 +159,64 @@ def delete_product(request, product_id):
     product = get_object_or_404(Product, id=product_id)
     product.delete()
     return redirect('products')  
+
+    return redirect('dashboard')
+
+
+
+
+
+def add_productforfac(request):
+    try:
+        user_profile = UserProfile.objects.get(user=request.user)
+    except UserProfile.DoesNotExist:
+        user_profile = None
+
+    try:
+        storage =  Storage.objects.get(storage_manager=user_profile)
+    except Farm.DoesNotExist:
+        storage = None
+
+    if request.method == "POST":
+        # If farm exists, show the crop form with that farm pre-selected
+        if storage:
+            crop_form = CropForm(request.POST)
+            if crop_form.is_valid():
+                crop = crop_form.save(commit=False)
+                crop.farm = storage
+                crop.save()
+                return redirect('dashboard')  # Redirect to crop list after saving
+        else:
+            # If no farm exists for the user, prompt for farm creation
+            farm_form = FarmForm(request.POST)
+            crop_form = CropForm(request.POST)
+            if farm_form.is_valid() and crop_form.is_valid():
+                # Create a new farm and associate the user as the farm manager
+                new_storage = farm_form.save(commit=False)
+                new_storage.farm_manager = user_profile
+                new_storage.save()
+
+                # Create the crop and associate it with the newly created farm
+                crop = crop_form.save(commit=False)
+                crop.farm = new_storage
+                crop.save()
+
+                return redirect('dashboard')  # Redirect after saving
+    else:
+        # Create an empty crop form and farm form for GET request
+        if storage:
+            crop_form = CropForm()
+        else:
+            farm_form = FarmForm()  # Show farm creation form if no farm exists
+            crop_form = CropForm()
+        farm_form = FarmForm()  # Show farm creation form if no farm exists
+        crop_form = CropForm()
+    return render(request, 'add_crop_form.html', {'crop_form': crop_form, 'farm_form': farm_form, 'farm': storage})
+
+
+
+def view_storage(request):
+    # Your logic for the storage page
+    return render(request, 'view_storage.html')
+
+

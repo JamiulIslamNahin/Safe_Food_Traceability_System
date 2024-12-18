@@ -49,6 +49,10 @@
                 <h2>Nutritionist</h2>
             </div>
             <div class="list-group list-group-flush">
+
+                {% comment %} <a href="{%url 'admin_dashboard'%}" class="list-group-item list-group-item-action bg-success text-white sidebar-link active">Admin Dashboard</a> {% endcomment %}
+                {% comment %} <a href="index.html" class="list-group-item list-group-item-action bg-success text-white sidebar-link active">Home</a> {% endcomment %}
+
                 <a href="#" class="list-group-item list-group-item-action bg-success text-white sidebar-link">Products</a>
                 <a href="{% url 'nutrition_data' %}" class="list-group-item list-group-item-action bg-success text-white sidebar-link">Nutrition Data</a>
                 <a href="{% url 'n_report' %}" class="list-group-item list-group-item-action bg-success text-white sidebar-link">Reports</a>

@@ -24,4 +24,6 @@ urlpatterns = [
 
 
 
+    path('storage/', views.view_storage, name='view_storage'),
 
+]
