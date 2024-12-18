@@ -2,6 +2,9 @@ from django.db import models
 from dashboard.models import Farm
 from authentication.models import UserProfile
 
+#New
+from django.contrib.auth.models import User
+
 # Create your models here.
 class Crops(models.Model):
     CROPS_CHOICES = [
@@ -63,5 +66,33 @@ class StorageItem(models.Model):
 
     def __str__(self):
         return f"{self.product_name} in {self.storage.storage_name}"
+    
+
+
+
+#Nutritionist
+# Product model inherited from Storage
+class Product(models.Model):
+    name = models.CharField(max_length=100)
+    storage = models.ForeignKey(Storage, on_delete=models.CASCADE, related_name="products")
+    crops = models.ForeignKey(Crops, on_delete=models.CASCADE, related_name="crops")
+    status = models.CharField(max_length=50, choices=[('Pending', 'Pending'), ('Assigned', 'Assigned')])
+    date_added = models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.name} ({self.storage.storage_name})"
+
+# Nutrition model
+class Nutrition(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name="nutrition_data")
+    calories = models.FloatField(default=0.0)
+    protein = models.FloatField(default=0.0)
+    carbohydrates = models.FloatField(default=0.0)
+    fats = models.FloatField(default=0.0)
+    comments = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return f"Nutrition Info for {self.product.name}"
+
 
 

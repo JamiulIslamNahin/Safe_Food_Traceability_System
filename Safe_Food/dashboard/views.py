@@ -10,9 +10,12 @@ def n_report(request):
     return render(request, "n_report.html")
 
 
-def nutrition_data(request):
-    return render(request, "nutrition_data.html")
-
+# def nutrition_data(request):
+#     return render(request, "nutrition_data.html")
+def products_information(request):
+    # Fetch all products inherited from Storage
+    products = Crops.objects.all()
+    return render(request, 'nutrition_data.html', {'products': products })
 
 def dashboard(request):
     if(request.user.is_authenticated):
@@ -46,7 +49,9 @@ def dashboard(request):
             # return render(request,"farm_manager_dashboard.html")
         
         elif(user_type == "n"):
-            return render(request, "nutritionist_dashboard.html")
+            product_id = request.GET.get("product_id")
+            product = Crops.objects.filter(id=product_id).first()
+            return render(request, "nutritionist_dashboard.html", { "product": product })
         
         elif(user_type == "d"):
             return render(request,"distributor_dashboard.html")
